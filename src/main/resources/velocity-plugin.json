@@ -1,0 +1,10 @@
+{
+  "id": "AuthHack",
+  "name": "AuthHack",
+  "version": "0.0.1",
+  "description": "Experimental authentication redirection plugin for Velocity",
+  "authors": [
+    "Noorquacker"
+  ],
+  "main": "com.nqind.authhack.AuthMainHook"
+}

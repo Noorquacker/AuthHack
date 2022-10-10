@@ -12,6 +12,11 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.api.util.GameProfile;
 import org.slf4j.Logger;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+
+import java.net.http.HttpRequest;
+import java.net.http.HttpRequest.BodyPublishers;
 import java.util.Collections;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -19,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 public class AuthMainHook {
     private final ProxyServer server;
     private final Logger logger;
+    private final HttpClient client;
     private final Cache<InboundConnection, String> playerCache = CacheBuilder.newBuilder()
             .maximumSize(500)
             .expireAfterAccess(20, TimeUnit.SECONDS)
@@ -28,6 +34,7 @@ public class AuthMainHook {
     public AuthMainHook(ProxyServer server, Logger logger) {
         this.server = server;
         this.logger = logger;
+        this.client = HttpClient.newHttpClient();
 
         logger.info("h");
     }
@@ -43,6 +50,12 @@ public class AuthMainHook {
         String user = event.getUsername();
 
         // TODO Test if username is in database
+
+        var request = HttpRequest.newBuilder(
+                URI.create("https://mc.nqind.com/repo/authhack/api.php"))
+                .POST(BodyPublishers.ofString("{\"client_id\": \"local-client\"}"))
+                .build();
+        var response = client.send(request, ) // TODO TODO TODO TODO
         if(false) {
             logger.info("Redirecting authentication for username " + user);
             // Set to offline and add to player cache

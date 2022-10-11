@@ -16,10 +16,12 @@ import java.net.URI;
 import java.net.http.HttpClient;
 
 import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.util.Collections;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import org.json.JSONArray;
 
 public class AuthMainHook {
     private final ProxyServer server;
@@ -55,7 +57,14 @@ public class AuthMainHook {
                 URI.create("https://mc.nqind.com/repo/authhack/api.php"))
                 .POST(BodyPublishers.ofString("{\"client_id\": \"local-client\"}"))
                 .build();
-        var response = client.send(request, ) // TODO TODO TODO TODO
+        try {
+            var response = client.send(request, HttpResponse.BodyHandlers.ofString()); // TODO TODO TODO TODO
+            JSONArray j = new JSONArray(response.body());
+        }
+        catch(Exception e) {
+            // ???
+        }
+
         if(false) {
             logger.info("Redirecting authentication for username " + user);
             // Set to offline and add to player cache

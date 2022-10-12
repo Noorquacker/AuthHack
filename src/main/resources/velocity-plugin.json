@@ -1,5 +1,5 @@
 {
-  "id": "AuthHack",
+  "id": "authhack",
   "name": "AuthHack",
   "version": "0.0.1",
   "description": "Experimental authentication redirection plugin for Velocity",
